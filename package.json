@@ -1,0 +1,17 @@
+{
+  "name": "honey-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kparf/honey-server.git",
+  "author": "Kiryl Parfiankou <kiryl.parfiankou@itechart-group.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-hbs": "^0.9.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "puppeteer": "^1.19.0",
+    "static-server": "^2.2.1"
+  }
+}
