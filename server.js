@@ -1,22 +1,28 @@
-const path = require('path');
 const Koa = require('koa');
-const serve = require('koa-static');
 const Router = require('koa-router');
 const logger = require('koa-logger');
-const ssr = require('./ssr');
+const proxy = require('koa-proxy');
+
+const ssr = require('./src/ssr');
+const config = require('./src/config');
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/', async (ctx, next) => {
-  const { html, ttRenderMs } = await ssr(`${ctx.protocol}://${ctx.host}${ctx.path}`);
+router.get('/:file.html', async (ctx, next) => {
+  const { html, ttRenderMs } = await ssr(`${config.static}${ctx.path}`);
+  ctx.body = html;
+});
+
+router.get('', async (ctx, next) => {
+  const { html, ttRenderMs } = await ssr(`${config.static}${ctx.path}`);
   ctx.body = html;
 });
 
 
 app.use(logger());
 app.use(router.routes());
-app.use(router.allowedMethods());
-app.use(serve(path.join(__dirname, '../../dist')));
+app.use(proxy({ host: config.static}))
 
-app.listen(3000);
+console.log(`started on ${config.port}`);
+app.listen(config.port);
