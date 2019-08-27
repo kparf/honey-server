@@ -6,7 +6,7 @@ async function ssr(url) {
   const start = Date.now();
 
   const browser = await puppeteer.launch({
-    args: '--no-sandbox',
+    args: ['--no-sandbox'],
   });
   const page = await browser.newPage();
 
